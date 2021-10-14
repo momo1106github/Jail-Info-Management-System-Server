@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Address from "./address";
 
-const inmateSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
   name: {
     last: String,
     first: String,
@@ -119,7 +119,7 @@ const inmateSchema = new mongoose.Schema({
   comments: [String],
 });
 
-inmateSchema.virtual("fullName").get(function () {
+bookingSchema.virtual("fullName").get(function () {
   return (
     this.name.first +
     " " +
@@ -131,4 +131,4 @@ inmateSchema.virtual("fullName").get(function () {
   );
 });
 
-export default mongoose.model("Inmate", inmateSchema);
+export default mongoose.model("Booking", bookingSchema);
