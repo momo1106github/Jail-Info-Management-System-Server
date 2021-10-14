@@ -22,9 +22,10 @@ const inmateSchema = new mongoose.Schema({
   dateOfBirth: { type: Date },
   age: { type: Number },
   placeOfBirth: { type: String },
-  foreignNational: { type: String }, // user maintained list
+  foreignNational: Boolean,
+  foreignNationalCountry: String, // user maintained list
   SSN: { type: Number, alias: "socialSecurityNumber" },
-  sex: { type: String },
+  sex: { type: String }, // TODO: user maintained list?
   descent: { type: String }, // user maintained list
   hairColor: { type: String }, // user maintained list
   eyeColor: { type: String }, // user maintained list
@@ -36,7 +37,14 @@ const inmateSchema = new mongoose.Schema({
   },
   arrestDateTime: { type: Date, default: Date.now() },
   arrestingAgency: { type: String },
-  arrestLocation: { type: String }, // TODO
+  arrestLocation: {
+    address: {
+      type: mongoose.Types.Schema.ObjectId,
+      ref: "Address",
+    },
+    commonPlaceName: String,
+    reportingDistrict: String, // TODO: automatically input from user maintained list
+  },
   arrestCharges: { type: [String] }, // user maintained list
   arrOffsDeptID: { type: String, alias: "arrestingOfficersDeptID" }, // user maintained list
   transOffsDeptID: { type: String, alias: "transportingOfficersDeptID" }, // user maintained list
@@ -50,13 +58,28 @@ const inmateSchema = new mongoose.Schema({
     year: String,
     make: String,
     color: String,
-    disposition: {}, // TODO
+    disposition: {
+      status: {
+        type: String,
+        enum: ["impound", "parked", "other"],
+        default: "other",
+      },
+      impoundCompany: String, // TODO: user maintained list
+      impoundLocation: String, // TODO: user maintained list
+      parkedCity: String,
+      parkedLocation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+      },
+      otherText: String,
+    },
   },
   specialID: { type: String, alias: "specialIdentifiers" }, // user maintained list
   gangAffiliation: {
     name: String, // user maintained list or Text
-    location: String,
+    location: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
     memStat: {
+      type: String,
       enum: ["active", "associate", "former"],
       alias: "gangAffiliation.membershipStatus",
     },
@@ -65,24 +88,33 @@ const inmateSchema = new mongoose.Schema({
   bkDateTime: { type: Date, alias: "bookingDateTime" },
   bkClerksDeptID: { type: String, alias: "bookingClerksDeptID" },
   srchOffsDeptID: { type: String, alias: "searchingOfficersDeptID" },
-  arrestBail: Number,
+  arrestBail: Number, // TODO: automatically calculated from a user-maintained table, or entered manually
   property: {}, // TODO
-  bkNum: { type: Number, alias: "bookingNumber" },
+  bookingNumber: Number, // TODO: a sequential number automatically assigned
   emergencyContact: {
     name: {
       last: String,
       middle: String,
       first: String,
       suffix: String,
-      relationship: String, // user maintained list
-      address: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
     },
-  }, // TODO
+    relationship: String, // user maintained list
+    address: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
+  },
   occupation: String,
   skills: [String], // user maintained list
   highGrdCpl: { type: Number, alias: "highestGradeCompleted" },
   enAbility: { type: String, alias: "englishAbility" },
-  employer: {}, // TODO
+  employer: {
+    name: {
+      last: String,
+      first: String,
+      middle: String,
+      suffix: String,
+    },
+    typeOfBusiness: String,
+    position: String,
+  },
   separationRequired: { type: Boolean, default: false },
   comments: [String],
 });
