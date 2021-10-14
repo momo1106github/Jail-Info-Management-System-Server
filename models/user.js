@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   deptID: String,
-  password: String, // TODO: encryption
+  passwordHash: String,
   role: { type: String, enums: ["inmate", "clerk", "admin"] }, // TODO
 });
 

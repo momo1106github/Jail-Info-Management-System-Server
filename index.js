@@ -6,6 +6,7 @@ import { importSchema } from "graphql-import";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import config from "./config";
+import Mutation from "./resolvers/Mutation";
 
 mongoose.connect(config.mongoURL, {
   useNewUrlParser: true,
@@ -31,7 +32,6 @@ async function startApolloServer() {
   const schema = makeExecutableSchema({
     typeDefs: importSchema("./schema.graphql"),
     resolvers: {
-      Query,
       Mutation,
     },
   });
