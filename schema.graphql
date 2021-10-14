@@ -2,8 +2,8 @@ type Query {
   _dummy: String!
 }
 type Mutation {
-  userSignUp(deptId: String!, password: String!, role: String!): String
-  userLogin(deptId: String!, password: String!, role: String!): String
+  userSignUp(deptID: String!, password: String!, role: String!): String
+  userLogin(deptID: String!, password: String!, role: String!): String
 }
 
 type User {
