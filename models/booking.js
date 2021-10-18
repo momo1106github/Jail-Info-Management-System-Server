@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Address from "./address";
 
 const bookingSchema = new mongoose.Schema({
   name: {
@@ -8,20 +7,24 @@ const bookingSchema = new mongoose.Schema({
     middle: String,
     suffix: String,
   },
-  AKAs: { type: String },
+  AKAs: String,
   permAddr: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Address,
+    ref: "Address",
     alias: "permanentAddress",
   },
   tempAddr: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Address,
+    ref: "Address",
     alias: "temporaryAddress",
   },
   dateOfBirth: { type: Date },
   age: { type: Number },
-  placeOfBirth: { type: String },
+  placeOfBirth: {
+    city: String,
+    state: String,
+    country: String,
+  },
   foreignNational: Boolean,
   foreignNationalCountry: String, // user maintained list
   SSN: { type: Number, alias: "socialSecurityNumber" },
@@ -39,7 +42,7 @@ const bookingSchema = new mongoose.Schema({
   arrestingAgency: { type: String },
   arrestLocation: {
     address: {
-      type: mongoose.Types.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Address",
     },
     commonPlaceName: String,

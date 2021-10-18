@@ -2,12 +2,88 @@ type Query {
   _dummy: String!
 }
 type Mutation {
-  userSignUp(deptID: String!, password: String!, role: String!): String
-  userLogin(deptID: String!, password: String!, role: String!): String
+  UserSignUp(deptID: String!, password: String!, role: String!): String
+  UserLogin(deptID: String!, password: String!, role: String!): String
+  BookingUpsert(booking: Booking): String
 }
 
 type User {
-  deptId: String!
+  deptID: String!
   password: String!
   role: String!
+}
+
+input Booking {
+  name: Name!
+  AKAs: [String]!
+  permAddr: Address!
+  tempAddr: Address!
+  dateOfBirth: String!
+  age: Int!
+  placeOfBirth: PlaceOfBirth!
+  foreignNational: Boolean!
+  foreignNationalCountry: String!
+  SSN: Int!
+  sex: String!
+  descent: String!
+  hairColor: String!
+  eyeColor: String!
+  height: [String!]!
+  weight: String!
+  ScarsMarksTattoos: ScarsMarksTattoos!
+  arrestDateTime: String!
+  arrestingAgency: String!
+  arrestLocation: 
+    arrestCharges: args.arrestCharges,
+    arrOffsDeptID: args.arrOffsDeptID,
+    transOffsDeptID: args.transOffsDeptID,
+    driversLicense: args.driversLicense,
+    vehicle: args.vehicle,
+    specialID: args.specialID,
+    gangAffiliation: args.gangAffiliation,
+    deptReportNum: args.deptReportNum,
+    bkDateTime: args.bkDateTime,
+    bkClerksDeptID: args.bkClerksDeptID,
+    srchOffsDeptID: args.srchOffsDeptID,
+    arrestBail: args.arrestBail,
+    property: args.property,
+    bookingNumber: args.bookingNumber,
+    emergencyContact: args.emergencyContact,
+    occupation: args.occupation,
+    skills: args.skills,
+    highGrdCpl: args.highGrdCpl,
+    enAbility: args.enAbility,
+    employer: args.employer,
+    separationRequired: args.separationRequired,
+    comments: args.comments,
+}
+
+input Name {
+  last: String!
+  first: String!
+  middle: String
+  suffix: String
+}
+
+input Address {
+  streetNumber: Number
+  direction: String
+  streetName: String
+  streetType: String
+  apartmentNumber: Number
+  city: String
+  state: String
+  zipCode: Number
+  telephoneNumber: Number
+}
+
+input PlaceOfBirth {
+  city: String!
+  state: String!
+  country: String!
+}
+
+input ScarsMarksTattoos {
+  SMT: [String]!
+  location: Address
 }

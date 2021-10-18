@@ -1,6 +1,7 @@
-import userSignUp from "../resolvers/mutation";
-import userLogin from "../resolvers/mutation";
+import UserSignUp from "./mutations/UserSignUp";
+import UserLogin from "./mutations/UserLogin";
+import BookingUpsert from "./mutations/BookingUpsert";
 
-const Mutation = { userSignUp, userLogin };
+const Mutation = { UserSignUp, UserLogin, BookingUpsert };
 
 export default Mutation;
