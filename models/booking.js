@@ -118,6 +118,14 @@ const bookingSchema = new mongoose.Schema({
     typeOfBusiness: String,
     position: String,
   },
+  medicalInfo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "MedicalInfo",
+  },
+  observation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Observation",
+  },
   separationRequired: { type: Boolean, default: false },
   comments: [String],
 });
