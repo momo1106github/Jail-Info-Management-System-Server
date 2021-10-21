@@ -8,13 +8,15 @@ router.post("/signup", (req, res) => {
 
   const { deptID, password, role } = req.body;
 
-  UserService.signUp({ deptID, password, role = "inmate" }).then((user) => {
-    console.log("User signed up:", user);
-    res.status(200); // TODO: token
-  }).catch((err) => {
-    console.log(err);
-    res.status(401).send(err);
-  })
+  UserService.signUp({ deptID, password, role })
+    .then((user) => {
+      console.log("User signed up:", user);
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(401).send(err);
+    });
 });
 
 router.post("/login", (req, res) => {
@@ -22,11 +24,15 @@ router.post("/login", (req, res) => {
 
   const { deptID, password } = req.body;
 
-  UserService.logIn({deptID, password}).then((user) => {
-    console.log("User logged in:", user);
-    res.status(200); // TODO: token
-  }).catch((err) => {
-    console.log(err);
-    res.status(401).send(err);
-  })
-})
+  UserService.logIn({ deptID, password })
+    .then((user) => {
+      console.log("User logged in:", user);
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(401).send(err);
+    });
+});
+
+export default router;
