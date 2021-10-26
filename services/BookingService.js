@@ -1,4 +1,6 @@
 import Booking from "../models/booking";
+import MedicalInfo from "../models/medicalInfo";
+import Observation from "../models/observation";
 
 class BookingService {
   static async getBooking({ bookingNumber }) {
@@ -55,11 +57,40 @@ class BookingService {
       separationRequired: booking.separationRequired,
       comments: booking.comments,
     };
-    await Booking.findOneAndUpdate({ deptID }, update, { new: true });
+    await Booking.findOneAndUpdate({ deptID }, update, { upsert: true });
   }
 
   static async deleteBooking({ bookingNumber }) {
     await Booking.findOneAndDelete({ bookingNumber });
+    await MedicalInfo.findOneAndDelete({ bookingNumber });
+    await Observation.findOneAndDelete({ bookingNumber });
+    // TODO
+  }
+
+  static async getMedicalInfo({ bookingNumber }) {
+    const medicalInfo = await MedicalInfo.findOne({ bookingNumber });
+    if (!medicalInfo) throw new Error("MEDICAL_INFORMATION_NOT_EXISTS");
+
+    return medicalInfo;
+  }
+
+  static async upsertMedicalInfo({ bookingNumber, medicalInfo }) {
+    await MedicalInfo.findOneAndUpdate({ bookingNumber }, medicalInfo, {
+      upsert: true,
+    });
+  }
+
+  static async getObservation({ bookingNumber }) {
+    const observation = await Observation.findOne({ bookingNumber });
+    if (!observation) throw new Error("OBSERVATION_NOT_EXISTS");
+
+    return observation;
+  }
+
+  static async upsertObservation({ bookingNumber, observation }) {
+    await Observation.findOneAndUpdate({ bookingNumber }, observation, {
+      upsert: true,
+    });
   }
 }
 

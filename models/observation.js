@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const observation = new mongoose.Schema({
+const observationSchema = new mongoose.Schema({
+  bookingNumber: Number,
   impairedConsciousnessLevel: Number,
   emergencyMedicalCareNeeded: Boolean,
   alcoholInfluenced: Boolean,
@@ -14,4 +15,4 @@ const observation = new mongoose.Schema({
   highProfile: Boolean,
 });
 
-export default observation;
+export default mongoose.model("Observation", observationSchema);

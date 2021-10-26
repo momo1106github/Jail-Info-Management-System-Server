@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const medicalInfoSchema = new mongoose.Schema({
+  bookingNumber: Number,
   communicableDisease: Boolean,
   diabetes: Boolean,
   epilepsy: Boolean,
