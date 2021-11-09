@@ -19,6 +19,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// /api/booking
 router.post("/", (req, res) => {
   console.log(req.body);
 
@@ -34,6 +35,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// /api/booking
 router.delete("/", (req, res) => {
   console.log(req.body);
 
