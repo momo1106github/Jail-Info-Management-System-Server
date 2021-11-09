@@ -101,7 +101,7 @@ class BookingService {
         },
       },
       "fullName bookingNumber bookingDateTime arrestingAgency arrestLocation dateOfBirth sex descent departmentReportNumber arrestCharges -_id"
-    );
+    ).sort({ fullName: "ascending", bookingNumber: "ascending" });
     return dailyLog;
   }
 }
