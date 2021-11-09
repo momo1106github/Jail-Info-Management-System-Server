@@ -1,6 +1,5 @@
 import { tsCallSignatureDeclaration } from "@babel/types";
 import { Router } from "express";
-import test from "../../models/Test";
 import userRouter from "./user";
 import bookingRouter from "./booking";
 
