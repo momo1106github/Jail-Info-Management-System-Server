@@ -10,7 +10,7 @@ class BookingService {
     return booking;
   }
 
-  static async UpsertBooking({ deptID, booking }) {
+  static async upsertBooking({ deptID, booking }) {
     const update = {
       name: booking.name,
       AKAs: booking.AKAs,
