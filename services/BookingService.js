@@ -92,6 +92,18 @@ class BookingService {
       upsert: true,
     });
   }
+
+  static async getDailyLog() {
+    const dailyLog = await Booking.find(
+      {
+        bookingDateTime: {
+          $gte: new Date(new Date().setHours(0, 0, 0, 0)),
+        },
+      },
+      "fullName bookingNumber bookingDateTime arrestingAgency arrestLocation dateOfBirth sex descent departmentReportNumber arrestCharges -_id"
+    );
+    return dailyLog;
+  }
 }
 
 export default BookingService;
